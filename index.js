@@ -24,11 +24,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 //Passport middleware
 app.use(passport.initialize());
 //Bring in the Passport Strategy
-require('../config/passport')(passport);
+require('./config/passport')(passport);
 
 app.use(express.json())
 
-const db = require('../config/keys').mongoURI;
+const db = require('./config/keys').mongoURI;
 console.log(mongoose.version);
 mongoose.connect(db, {
     //userNewUrlParser: true
@@ -38,8 +38,8 @@ mongoose.connect(db, {
     console.log(`Error occured while connecting to database \n${err}`)
 });
 
-const tasks = require('./routes/api/tasks');
-const users = require('./routes/api/users');
+const tasks = require('./server/routes/api/tasks');
+const users = require('./server/routes/api/users');
 
 app.use('/api/tasks', tasks);
 app.use('/api/users', users);
